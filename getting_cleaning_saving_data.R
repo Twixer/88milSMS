@@ -145,7 +145,7 @@ load.data <- function (data.raw.file= "data/data_raw.RData",
                        timeout = 120,
                        force = F) {
     
-    # All process if forced
+    # All processes if forced or if first time
     if (force | !file.exists(data.raw.file)) {
         message("All the getting and cleaning process is performed.")
         data.raw <- getting.and.saving.raw.data(filename=data.raw.file, 
