@@ -59,7 +59,8 @@ getting.and.saving.raw.data <- function (filename="data/data_raw.RData",
 # analyse.
 # 
 # Operations performed are  : 
-#  - ...
+#  1. rename columns : id.sms, timestamp, id.mobile, sms
+#  2. Column types : id.sms as integer, id.mobile as factor, timestamp as POSIXct
 #
 # Args : 
 #    data (dataframe) : a data frame with the raw data to manipulate.
@@ -86,7 +87,16 @@ cleaning.and.saving.data <- function(data=data.raw,
     message(paste0("Initial raw data frame size is : ", format(data.size, unit="auto")))
     
     data.clean <- data
+    data.columns <- c("id.sms", "timestamp", "id.mobile", "sms")
+    message("Data manipulation : renaming columns.")
+    data.columns
     
+    colnames(data.clean) <- data.columns
+    
+    message("Data manipulation : column types.")    
+    data.clean$id.sms <- as.integer(data.clean$id.sms)
+    data.clean$timestamp <- as.POSIXct(strptime(data.clean$timestamp, format = "%d %b %Y %T", tz = "Europe/Paris"))
+    data.clean$id.mobile <- factor(data.clean$id.mobile)
     
     data.clean.size <- object.size(data.clean)
     message(paste0("Final cleaned data frame size is : ", format(data.clean.size, unit="auto")))
