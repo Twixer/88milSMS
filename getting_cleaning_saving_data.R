@@ -61,6 +61,8 @@ getting.and.saving.raw.data <- function (filename="data/data_raw.RData",
 # Operations performed are  : 
 #  1. rename columns : id.sms, timestamp, id.mobile, sms
 #  2. Column types : id.sms as integer, id.mobile as factor, timestamp as POSIXct
+#  3. add columns : day(factor), hour(factor), weekday/weekend(factor)
+#  4. ordering columns : id.sms, id.mobile, timestamp, month, day, hour, day.type, sms
 #
 # Args : 
 #    data (dataframe) : a data frame with the raw data to manipulate.
@@ -97,10 +99,43 @@ cleaning.and.saving.data <- function(data=data.raw,
     data.clean$id.sms <- as.integer(data.clean$id.sms)
     data.clean$timestamp <- as.POSIXct(strptime(data.clean$timestamp, format = "%d %b %Y %T", tz = "Europe/Paris"))
     data.clean$id.mobile <- factor(data.clean$id.mobile)
+
+    message("Adding columns : day, hour, weekend/weekday")
+    # month
+    data.clean$month <- factor(as.integer(format(data.clean$timestamp, "%m")))
+    
+    
+    # day
+    data.clean$day <- factor(as.integer(format(data.clean$timestamp, "%d")))
+    
+    # hour
+    data.clean$hour <- factor(as.integer(format(data.clean$timestamp, "%H")))
+    
+    # weekday / weekend
+    locale.lc_time <- Sys.getlocale(category = "LC_TIME")
+    Sys.setlocale(category = "LC_TIME", locale ="English")
+    data.clean$day.type <- as.factor(ifelse(
+                    weekdays(data.clean$timestamp) %in% c("Saturday","Sunday"), 
+                    "Weekend", 
+                    "Weekday"))
+    Sys.setlocale(category = "LC_TIME", locale = locale.lc_time)
+    
+    columns <- c("id.sms", 
+                 "id.mobile", 
+                 "timestamp", 
+                 "month",
+                 "day", 
+                 "hour", 
+                 "day.type", 
+                 "sms")    
+    message(paste("Ordering columns."))
+    columns
+    data.clean <- data.clean[, columns]
     
     data.clean.size <- object.size(data.clean)
     message(paste0("Final cleaned data frame size is : ", format(data.clean.size, unit="auto")))
     
+
     save(data.clean, file = filename)
     message(paste0("Cleaned and tidy data are saved in a RData file : ", 
                    filename))
@@ -158,8 +193,10 @@ load.data <- function (data.raw.file= "data/data_raw.RData",
     
     # The clean data already exists ?
     if (file.exists(data.clean.file)) {
+        message("The clean data file already exists.")
         load(data.clean.file)
     } else {
+        message("The raw data file already exists.")
         load(data.raw.file)
         data.clean <- cleaning.and.saving.data(data=data.raw, 
                                                filename=data.clean.file, 
