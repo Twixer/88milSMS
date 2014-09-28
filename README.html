@@ -56,22 +56,16 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <h1>Introduction</h1>
 <p>This project is an R analysis of the 88milSMS project. The initial project is hosted at <a href="http://88milsms.huma-num.fr/index.html">http://88milsms.huma-num.fr/index.html</a>.</p>
 </div>
-<div id="about-the-data" class="section level1">
-<h1>About the data</h1>
-<p>The project</p>
+<div id="data" class="section level1">
+<h1>Data</h1>
 <pre><code>data &lt;- load.data()
 
 ## The clean data file already exists.
 
-xtable &lt;- function(x, ...) {
-   for (i in which(sapply(x, function(y) !all(is.na(match(c(&quot;POSIXt&quot;,&quot;Date&quot;),class(y))))))) x[[i]] &lt;- as.character(x[[i]])
-   xtable::xtable(x, ...)
-}
-
 xt &lt;- xtable(data)
 print(head(xt), type=&quot;html&quot;)</code></pre>
 <!-- html table generated in R 3.1.1 by xtable 1.7-4 package -->
-<!-- Fri Sep 26 20:03:06 2014 -->
+<!-- Mon Sep 29 00:59:00 2014 -->
 <table border="1">
 <tr> <th>  </th> <th> 
 id.sms
@@ -87,6 +81,8 @@ day
 hour
 </th> <th> 
 day.type
+</th> <th> 
+holidays
 </th> <th> 
 sms
 </th>  </tr>
@@ -107,6 +103,8 @@ sms
 </td> <td> 
 Weekday
 </td> <td> 
+0
+</td> <td> 
 Hey ca va? Alors cette rentree? Va falloir se trouver un p’tit creneau pour se voir! Dis moi, est-ce que tu sais quand commence les cours de langue non specialiste? Bisoux
 </td> </tr>
   <tr> <td align="right"> 
@@ -125,6 +123,8 @@ Hey ca va? Alors cette rentree? Va falloir se trouver un p’tit creneau pour se
 8
 </td> <td> 
 Weekday
+</td> <td> 
+0
 </td> <td> 
 Ok super merci! Oui j’y comprends rien du tout moi a cette fac :p J’irai me renseigner aussi ( si j’trouve le batiment :) ) Merci encore! Bonne soiree bisoux!
 </td> </tr>
@@ -145,6 +145,8 @@ Ok super merci! Oui j’y comprends rien du tout moi a cette fac :p J’irai me 
 </td> <td> 
 Weekday
 </td> <td> 
+0
+</td> <td> 
 Coucou ! C’est quand la feria de Nimes? J’suis pas bien sure de la faire mais pourquoi pas! Sinon oui, j’profite de ma derniere semaine de vacance! Bon courage! Bisoux
 </td> </tr>
   <tr> <td align="right"> 
@@ -163,6 +165,8 @@ Coucou ! C’est quand la feria de Nimes? J’suis pas bien sure de la faire mai
 8
 </td> <td> 
 Weekday
+</td> <td> 
+0
 </td> <td> 
 Coucou :) Oui ca c’est bien passe! Alors je sais pas du tout pour jeudi soir… Non pas que je veuille pas mais je suis pas sure d’etre sur Montpel. J’y serai de sur qu’a partir de lundi prochain car je commence les cours…
 </td> </tr>
@@ -183,6 +187,8 @@ Coucou :) Oui ca c’est bien passe! Alors je sais pas du tout pour jeudi soir�
 </td> <td> 
 Weekday
 </td> <td> 
+0
+</td> <td> 
 On peut se rejoindre quelque part? Tu as cours ou ?
 </td> </tr>
   <tr> <td align="right"> 
@@ -202,15 +208,20 @@ On peut se rejoindre quelque part? Tu as cours ou ?
 </td> <td> 
 Weekday
 </td> <td> 
+0
+</td> <td> 
 Encore moi… J’te harcele, oui oui et j’assume :) Juste j’te tiens au courant. On sera 4. Toi, &lt;PRE_7&gt;, &lt;PRE_3&gt; et moi a participer. On t’avance?
 </td> </tr>
    </table>
+
 </div>
 <div id="license" class="section level1">
 <h1>License</h1>
-<div id="data" class="section level2">
+<div id="data-1" class="section level2">
 <h2>Data</h2>
 <p>The license about the terms of use for the data is described at <a href="http://88milsms.huma-num.fr/corpus.html">http://88milsms.huma-num.fr/corpus.html</a>.</p>
+<p>An R analysis of the 88milSMS project. The initial project is hosted at <a href="http://88milsms.huma-num.fr/index.html">http://88milsms.huma-num.fr/index.html</a>.</p>
+<p>The license about the term of use for the data is described at <a href="http://88milsms.huma-num.fr/corpus.html">http://88milsms.huma-num.fr/corpus.html</a>.</p>
 </div>
 </div>
 

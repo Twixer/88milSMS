@@ -11,16 +11,15 @@ output:
 ---
 
 ``` {r global_options, echo=F}
-# global pacakges 
 library(knitr,quietly = T)
 library(xtable, quietly = T)
 
-# Global options
 opts_chunk$set(echo= TRUE, 
                results='asis',
                cache=T,
                cache.path="cache/",
                fig.path="figures/")
+
 
 # trick : http://stackoverflow.com/questions/8652674/r-xtable-and-dates
 xtable <- function(x, ...) {
@@ -28,16 +27,15 @@ xtable <- function(x, ...) {
    xtable::xtable(x, ...)
 }
 
-source("scripts//getting_cleaning_saving_data.R")
+source("scripts/get_clean_save_dataframe.R")
 ```
 
 # Introduction
 This project is an R analysis of the 88milSMS project.
 The initial project is hosted at http://88milsms.huma-num.fr/index.html.
 
-# About the data
+# Data
 
-The project 
 
 ```{r view_data }
 data <- load.data()
@@ -46,9 +44,14 @@ xt <- xtable(data)
 print(head(xt), type="html")
 
 ```
+
 # License
 
 ## Data
 
 The license about the terms of use for the data is described at http://88milsms.huma-num.fr/corpus.html. 
 
+An R analysis of the 88milSMS project.
+The initial project is hosted at http://88milsms.huma-num.fr/index.html.
+
+The license about the term of use for the data is described at http://88milsms.huma-num.fr/corpus.html. 
