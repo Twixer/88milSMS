@@ -3,20 +3,52 @@ title: "88milSMS"
 author: "Twixer"
 date: "Friday, September 26, 2014"
 output: 
-    md_document
+    html_document :
+        toc: true
+        theme: united
+    md_document :
+        fig_retina: true
 ---
 
 ``` {r global_options, echo=F}
+# global pacakges 
 library(knitr,quietly = T)
+library(xtable, quietly = T)
+
+# Global options
 opts_chunk$set(echo= TRUE, 
                results='asis',
                cache=T,
                cache.path="cache/",
                fig.path="figures/")
+
+# trick : http://stackoverflow.com/questions/8652674/r-xtable-and-dates
+xtable <- function(x, ...) {
+   for (i in which(sapply(x, function(y) !all(is.na(match(c("POSIXt","Date"),class(y))))))) x[[i]] <- as.character(x[[i]])
+   xtable::xtable(x, ...)
+}
+
+source("scripts//getting_cleaning_saving_data.R")
 ```
 
-An R analysis of the 88milSMS project.
+# Introduction
+This project is an R analysis of the 88milSMS project.
 The initial project is hosted at http://88milsms.huma-num.fr/index.html.
 
-The license about the term of use for the data is described at http://88milsms.huma-num.fr/corpus.html. 
+# About the data
+
+The project 
+
+```{r view_data }
+data <- load.data()
+
+xt <- xtable(data)
+print(head(xt), type="html")
+
+```
+# License
+
+## Data
+
+The license about the terms of use for the data is described at http://88milsms.huma-num.fr/corpus.html. 
 
