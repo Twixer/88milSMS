@@ -61,7 +61,7 @@ getting.and.saving.raw.data <- function (filename="data/data_raw.RData",
 # Operations performed are  : 
 #  1. rename columns : id.sms, timestamp, id.mobile, sms
 #  2. Column types : id.sms as integer, id.mobile as factor, timestamp as POSIXct
-#  3. add columns : day(factor), hour(factor), weekday/weekend(factor)
+#  3. add columns : day(factor), hour(factor), weekday/weekend(factor), holidays
 #  4. ordering columns : id.sms, id.mobile, timestamp, month, day, hour, day.type, sms
 #
 # Args : 
@@ -100,11 +100,10 @@ cleaning.and.saving.data <- function(data=data.raw,
     data.clean$timestamp <- as.POSIXct(strptime(data.clean$timestamp, format = "%d %b %Y %T", tz = "Europe/Paris"))
     data.clean$id.mobile <- factor(data.clean$id.mobile)
 
-    message("Adding columns : day, hour, weekend/weekday")
+    message("Adding columns : day, hour, weekend/weekday, holidays")
     # month
     data.clean$month <- factor(as.integer(format(data.clean$timestamp, "%m")))
-    
-    
+        
     # day
     data.clean$day <- factor(as.integer(format(data.clean$timestamp, "%d")))
     
@@ -120,13 +119,23 @@ cleaning.and.saving.data <- function(data=data.raw,
                     "Weekday"))
     Sys.setlocale(category = "LC_TIME", locale = locale.lc_time)
     
+    # Holidays
+    # holidays in France for the data period are : 22/10/2011 to 03/11/2011    
+    data.clean$holidays <- as.factor(ifelse(
+        data.clean$timestamp > as.POSIXct(as.Date("21/09/2011", format="%d/%m/%Y"))
+        &  data.clean$timestamp < as.POSIXct(as.Date("04/11/2011", format="%d/%m/%Y")), 
+        1, 
+        0))
+    
+    # ordering columns
     columns <- c("id.sms", 
                  "id.mobile", 
                  "timestamp", 
                  "month",
                  "day", 
                  "hour", 
-                 "day.type", 
+                 "day.type",
+                 "holidays",
                  "sms")    
     message(paste("Ordering columns."))
     columns
