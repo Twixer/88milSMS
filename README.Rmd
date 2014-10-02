@@ -34,8 +34,19 @@ source("scripts/get_clean_save_dataframe.R")
 This project is an R analysis of the 88milSMS project.
 The initial project is hosted at http://88milsms.huma-num.fr/index.html.
 
-# Data
+After following Data Science courses on Coursera, the aim of my project is to 
+manipulate data in order to increase my R skills.
 
+The project and the dataset have been chosen because they are interesting in many
+ways : 
+
+ * the data are not easy to find by other ways
+ * the initial project embraces a subject of the everyday life
+ * the kind of analysis to perform on the data are various (from surface analysis to deep text mining)
+
+# About the data
+
+The data of the project are well described in the documentation in the /doc directory. 
 
 ```{r view_data }
 data <- load.data()
@@ -44,6 +55,27 @@ xt <- xtable(data)
 print(head(xt), type="html")
 
 ```
+
+# Questions and assumptions
+
+One intersting point in the manipulated data is that we generate them everyday by 
+ourselves. With this dataset we have the opportunity to manipulate the data from 
+a large variety of people and we have some usefull information about them.
+
+I had a lot of questions and assumptions before beginning to work on these data.
+Some of them were false werehas others where confirmed.
+
+## Questions
+
+* when are sent the SMS  ?
+
+## Assumptions
+
+* Most SMS during the week-end
+* Most SMS during holidays
+* Females are writing the most and longer SMS
+* The vocabulary is reduced in SMS
+* SMS are very short messages (1 sentence, max 10 words)
 
 # License
 
