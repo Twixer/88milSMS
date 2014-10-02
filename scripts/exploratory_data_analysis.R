@@ -56,7 +56,7 @@ hist(sms.by.user,
      breaks = 100, 
      #axes = F,
      xaxt='n',
-     main="Nb of SMS by user",
+     main="SMS distribution",
      xlab="Nb of SMS",
      ylab="Frequency of users")
 axis(1,at = c(seq(0,2000,50), seq(2000, 8000, 2000)),labels = T,pos = 0)
@@ -89,4 +89,3 @@ axis(1,at = seq(90,2000,50), labels = T,pos = 0)
 source("scripts//manipulate_data.R")
 data <- add.frequency.class(data, verbose=T)
 
-data <- add.sex.information(data, verbose=T)

@@ -24,7 +24,7 @@ sms.by.day.type <- data %>%
     group_by(id.mobile, day.type) %>%
     select(id.mobile, day.type, id.sms) %>%
     #filter(day.type == "Weekend") %>%
-    summarise(nb.sms = length(id.sms))
+    summarise(nb.sms = n())
 
 # sms.weekdays <- data %>%
 #     group_by(id.mobile) %>%
